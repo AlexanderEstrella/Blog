@@ -34,6 +34,15 @@ app.get("/contact", (req, res) => {
   });
 });
 
+app.get("/compose", (req, res) => {
+  res.render("compose.ejs");
+});
+
+app.post("/compose", (req, res) {
+   let name  = req.body.fname
+  console.log(JSON.stringify(data))
+})
+
 app.listen(3000, () => {
   console.log("server has started");
 });
