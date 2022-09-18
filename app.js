@@ -40,7 +40,8 @@ app.get("/compose", (req, res) => {
 
 app.post("/compose", (req, res) => {
   let name = req.body.fname;
-  console.log(JSON.stringify(name));
+  let tarea = req.body.areat;
+  console.log(name, tarea);
 });
 
 app.listen(3000, () => {
