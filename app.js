@@ -22,7 +22,7 @@ let posts = [];
 app.get("/", (req, res) => {
   res.render("home", {
     startingContent: homeStartingContent,
-    posts: posts,
+    posts: posts
   });
 });
 
