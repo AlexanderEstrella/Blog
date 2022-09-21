@@ -51,6 +51,17 @@ app.post("/compose", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/posts/:any", (req, res) => {
+  let found = req.params.any;
+
+  if (found === posts[0].title) {
+    console.log("True")
+  } else {
+    console.log("False")
+}
+
+})
+
 app.listen(3000, () => {
   console.log("server has started");
 });
