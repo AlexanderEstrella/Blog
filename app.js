@@ -14,35 +14,35 @@ const contactContent =
   "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
 const app = express();
-
+// Sets up the Express app to handle data parsing
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 let posts = [];
-
+//Rendering arrray to home.ejs 
 app.get("/", (req, res) => {
   res.render("home", {
     startingContent: homeStartingContent,
     posts: posts
   });
 });
-
+// passing a variables to about page
 app.get("/about", (req, res) => {
   res.render("about", {
     about: aboutContent,
   });
 });
-
+// passing a variables to contact page
 app.get("/contact", (req, res) => {
   res.render("contact", {
     contact: contactContent,
   });
 });
-
+// passing path to compose page.
 app.get("/compose", (req, res) => {
   res.render("compose.ejs");
 });
-
+// redirecting posts to home page
 app.post("/compose", (req, res) => {
   const post = {
     title: req.body.fname,
@@ -51,7 +51,7 @@ app.post("/compose", (req, res) => {
   posts.push(post);
   res.redirect("/");
 });
-
+// using lodash to allow uses to search using the browser bar with almost any specials and be able to render the posts.
 app.get("/posts/:any", (req, res) => {
   let ovar = _.lowerCase(req.params.any);
   let Sparams  = _.lowerCase(posts[0].title)
