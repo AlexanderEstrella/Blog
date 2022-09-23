@@ -54,14 +54,19 @@ app.post("/compose", (req, res) => {
 // using lodash to allow uses to search using the browser bar with almost any specials and be able to render the posts.
 app.get("/posts/:any", (req, res) => {
   let ovar = _.lowerCase(req.params.any);
-  let Sparams  = _.lowerCase(posts[0].title)
-if (ovar === Sparams) {
-    console.log("True")
-  } else {
-    console.log("False")
-  };
+  posts.forEach(function (post) {
+    let Sparams = _.lowerCase(post.title)
+  
+    if (ovar === Sparams) {
+      res.render("post", {
+        title: post.title,
+        content: post.post,
+      });
 
-})
+    }
+
+  });
+});
 
 app.listen(3000, () => {
   console.log("server has started");
