@@ -7,14 +7,18 @@
 
 
   <%- include('partials/footer'); %>
-<div class="container">
+    <div class="container">
 
-    <% posts.forEach(function(post) { %>
-<h1>
-  <%= post.title %>
-</h1>
-      <p>
-      <%= post.post %>
-      </p>
+      <% posts.forEach(function(post) { %>
+        <h1>
+          <%= post.title %>
+        </h1>
+        <p>
+          <%= post.post %>
+        </p>
+        <p>
+          <%= posts.str %>
+            <a href="/post"> Read more</a>
+        </p>
         <% }) %>
-        </div>
+    </div>
