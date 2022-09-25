@@ -42,37 +42,27 @@ app.get("/contact", (req, res) => {
 app.get("/compose", (req, res) => {
   res.render("compose.ejs");
 });
-
-app.get("/post", (req, res) => {
-  res.render("post.ejs")
-})
 // redirecting posts to home page
 app.post("/compose", (req, res) => {
   const post = {
+    title: req.body.fname,
+    post: req.body.areat,
+  };
     
-    title: _.truncate(req.body.fname, {
-      "length": 100,
-      'omission':"..."
-    }),
-      post: _.truncate(req.body.areat, {
-        "length": 100,
-        "omission":'...'
-      }),
-    
-};
    posts.push(post);
     res.redirect("/");
 });
 // using lodash to allow uses to search using the browser bar with almost any specials and be able to render the posts.
 app.get("/posts/:any", (req, res) => {
-  let ovar = _.lowerCase(req.params.any);
+  const ovar = _.lowerCase(req.params.any);
 
   
   posts.forEach(function (post) {
-    let Sparams = _.lowerCase(post.title)
+    const Sparams = _.lowerCase(post.title)
   
     if (ovar === Sparams) {
-      res.render("/post", {
+      res.render("post", {
+
         title: post.title,
         content: post.post,
       }

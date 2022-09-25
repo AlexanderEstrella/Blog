@@ -14,11 +14,14 @@
           <%= post.title %>
         </h1>
         <p>
-          <%= post.post %>
+          <%= post.post.substring(0, 100); %>
+
+
+
+            <a href="/posts/
+                     <%= post.title %>
+                     "> Read more</a>
         </p>
-        <p>
-          <%= posts.str %>
-            <a href="/post"> Read more</a>
-        </p>
-        <% }) %>
+
+        <% });%>
     </div>
