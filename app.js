@@ -4,8 +4,24 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const path = require("path");
-const _ = require("lodash")
+const _ = require("lodash");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
+dotenv.config({ path: "./config.env" });
+
+const DB = process.env.DATABASE;
+
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then((con) => {
+    console.log(con.connections);
+    console.log("DB CONNECTION SUCCESS");
+  });
 const homeStartingContent =
   "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
 const aboutContent =
@@ -19,11 +35,11 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 let posts = [];
-//Rendering arrray to home.ejs 
+//Rendering arrray to home.ejs
 app.get("/", (req, res) => {
   res.render("home", {
     startingContent: homeStartingContent,
-    posts: posts
+    posts: posts,
   });
 });
 // passing a variables to about page
@@ -48,28 +64,23 @@ app.post("/compose", (req, res) => {
     title: req.body.fname,
     post: req.body.areat,
   };
-    
-   posts.push(post);
-    res.redirect("/");
+
+  posts.push(post);
+  res.redirect("/");
 });
 // using lodash to allow uses to search using the browser bar with almost any specials and be able to render the posts.
 app.get("/posts/:any", (req, res) => {
   const ovar = _.lowerCase(req.params.any);
 
-  
   posts.forEach(function (post) {
-    const Sparams = _.lowerCase(post.title)
-  
+    const Sparams = _.lowerCase(post.title);
+
     if (ovar === Sparams) {
       res.render("post", {
-
         title: post.title,
         content: post.post,
-      }
-      );
-
+      });
     }
-
   });
 });
 
