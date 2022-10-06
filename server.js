@@ -24,25 +24,33 @@ const postsSchema = new mongoose.Schema({
   },
   posts: {
     type: String,
-    default: "nothing was received",
+    required: [true, "A post is required"],
   },
 });
 
 const Post = mongoose.model("Post", postsSchema);
 
-const testPost = new Post({
-  title: "Day 2",
-  posts: "today was a better day!",
-});
+/* const testPost = new Post({
+  title: "Day 3",
+  posts: "today was a slightly better day!",
+}); */
 
-testPost
+/* testPost
   .save()
   .then((doc) => {
     console.log(doc);
   })
   .catch((err) => {
     console.log("error found", err);
-  });
+  }); */
+
+Post.deleteOne({ _id: "633ea89b8b25ad0b482dfb1b" }, function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("nicely done");
+  }
+});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server running at port 3000");
