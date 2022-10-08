@@ -11,15 +11,15 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
+    useUnifiedTopology: true,
   })
   .then((con) => {
     console.log("DB CONNECTION SUCCESS");
   });
-
 const postsSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, "must input a name"],
+    required: [true, "must input a tittle"],
     unique: true,
   },
   posts: {
@@ -28,27 +28,30 @@ const postsSchema = new mongoose.Schema({
   },
 });
 
+const personSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "must input a name"],
+  },
+  favoritepost: postsSchema,
+});
+
+const Person = mongoose.model("Person", personSchema);
+
 const Post = mongoose.model("Post", postsSchema);
 
 /* const testPost = new Post({
   title: "Day 3",
   posts: "today was a slightly better day!",
 }); */
+const testpost = new Post({
+  name: "day 7",
+  posts: "new things",
+});
 
-/* testPost
-  .save()
-  .then((doc) => {
-    console.log(doc);
-  })
-  .catch((err) => {
-    console.log("error found", err);
-  }); */
-
-Post.deleteOne({ _id: "633ea89b8b25ad0b482dfb1b" }, function (err) {
+Person.updateOne({ name: "alex" }, { favoritepost: testpost }, function (err) {
   if (err) {
-    console.log(err);
-  } else {
-    console.log("nicely done");
+    console.log("error" + err);
   }
 });
 
