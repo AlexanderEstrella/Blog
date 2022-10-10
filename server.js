@@ -44,16 +44,16 @@ const Post = mongoose.model("Post", postsSchema);
   title: "Day 3",
   posts: "today was a slightly better day!",
 }); */
-const testpost = new Post({
-  name: "day 7",
-  posts: "new things",
-});
+//const testpost = new Post({
+ // name: "day 7",
+ // posts: "new things",
+//});
 
-Person.updateOne({ name: "alex" }, { favoritepost: testpost }, function (err) {
-  if (err) {
-    console.log("error" + err);
-  }
-});
+//Person.updateOne({ name: "alex" }, { favoritepost: testpost }, function (err) {
+  //if (err) {
+   // console.log("error" + err);
+ // }
+//});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server running at port 3000");
