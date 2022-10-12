@@ -2,11 +2,11 @@ const app = require("./app");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "./config.env" });
+//dotenv.config({ path: "./config.env" });
 
-const DB = process.env.DATABASE;
+//const DB = process.env.DATABASE;
 
-mongoose
+/* mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -16,7 +16,7 @@ mongoose
   .then((con) => {
     console.log("DB CONNECTION SUCCESS");
   });
-const postsSchema = new mongoose.Schema({
+/* const postsSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, "must input a tittle"],
@@ -26,19 +26,19 @@ const postsSchema = new mongoose.Schema({
     type: String,
     required: [true, "A post is required"],
   },
-});
+//});
 
-const personSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "must input a name"],
-  },
-  favoritepost: postsSchema,
-});
+//const personSchema = mongoose.Schema({
+ // name: {
+  //  type: String,
+   // required: [true, "must input a name"],
+ // },
+ // favoritepost: postsSchema,
+//});
 
-const Person = mongoose.model("Person", personSchema);
+//const Person = mongoose.model("Person", personSchema);
 
-const Post = mongoose.model("Post", postsSchema);
+//const Post = mongoose.model("Post", postsSchema);
 
 /* const testPost = new Post({
   title: "Day 3",
@@ -55,6 +55,6 @@ const Post = mongoose.model("Post", postsSchema);
  // }
 //});
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Server running at port 3000");
+app.listen(process.env.PORT || 5000, function () {
+  console.log("Server running at port 5000");
 });
