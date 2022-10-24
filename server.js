@@ -16,44 +16,6 @@ mongoose
   .then((con) => {
     console.log("DB CONNECTION SUCCESS");
   });
-const postsSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: [true, "must input a tittle"],
-    unique: true,
-  },
-  posts: {
-    type: String,
-    required: [true, "A post is required"],
-  },
-});
-
-const personSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "must input a name"],
-  },
-  favoritepost: postsSchema,
-});
-
-const Person = mongoose.model("Person", personSchema);
-
-const Post = mongoose.model("Post", postsSchema);
-
-/* const testPost = new Post({
-  title: "Day 3",
-  posts: "today was a slightly better day!",
-}); */
-const testpost = new Post({
-  name: "day 7",
-  posts: "new things",
-});
-
-Person.updateOne({ name: "alex" }, { favoritepost: testpost }, function (err) {
-  if (err) {
-    console.log("error" + err);
-  }
-});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server running at port 3000");
