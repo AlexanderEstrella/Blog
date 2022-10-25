@@ -14,12 +14,9 @@
           <%= post.title %>
         </h1>
         <p>
-          <%= post.post %>
-
-
-
+          <%= post.post.substring(0,100) + "......" %>
             <a href="/posts/
-                     <%= post.title %>
+                     <%= post._id %>
                      "> Read more</a>
         </p>
 
