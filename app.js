@@ -13,7 +13,11 @@ const aboutContent =
   "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent =
   "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
-
+// Sets up the Express app to handle data parsing
+const app = express();
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 const postSchema = new mongoose.Schema({
   title: String,
   post: String,
@@ -21,18 +25,24 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
-const app = express();
-// Sets up the Express app to handle data parsing
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-//Rendering arrray to home.ejs
+//Rendering found databse items to home.ejs
 app.get("/", (req, res) => {
   Post.find({}, function (err, foundpost) {
     res.render("home", {
       startingContent: homeStartingContent,
       posts: foundpost,
     });
+  });
+});
+app.post("/delete", (req, res) => {
+  const Aboutdelete = req.body.delbutton;
+  Post.findByIdAndDelete({ _id: Aboutdelete }, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("deleted");
+      res.redirect("/");
+    }
   });
 });
 
@@ -67,13 +77,18 @@ app.post("/compose", (req, res) => {
 
 // using lodash to allow uses to search using the browser bar with almost any specials and be able to render the posts.
 app.get("/posts/:postid", (req, res) => {
-  const requestedPostId = req.params.postid;
-  console.log(requestedPostId);
-  Post.findOne({ _id: requestedPostId }, function (err, fpost) {
-    res.render("post", {
-      title: fpost.title,
-      content: fpost.post,
-    });
+  //Getting of whitespace that our object inherets when rendering it
+  const newid = req.params.postid;
+  const newerid = newid.trim();
+  Post.findOne({ _id: newerid }, function (err, post) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("post", {
+        title: post.title,
+        content: post.post,
+      });
+    }
   });
 });
 

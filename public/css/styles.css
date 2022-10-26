@@ -47,3 +47,9 @@ html {
 body {
   font-family: 'Courier New', Courier, monospace;
 }
+button {
+  display: none;
+}
+button:hover {
+  display:block;
+}
