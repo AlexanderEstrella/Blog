@@ -48,8 +48,11 @@ body {
   font-family: 'Courier New', Courier, monospace;
 }
 button {
-  display: none;
+  position: relative;
+  right: 25px;
+  bottom: 35px;
+      color: black !important;
+      background-color: lightblue;
+      font-size: 10px;
 }
-button:hover {
-  display:block;
-}
+
